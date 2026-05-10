@@ -2339,16 +2339,12 @@ function MuscleMap({ state, dispatch }) {
 
       {/* === MUSCLE REGIONS === */}
 
-      {/* TRAPEZIUS (smaller upper back wedge) */}
+      {/* TRAPEZIUS (upper wedge only — yoke across shoulders) */}
       <path d="
         M 96,82 C 84,84 72,88 60,96 C 50,104 44,116 44,126
         C 46,132 52,134 60,132 C 72,128 84,126 96,124 L 100,122 L 104,124
         C 116,126 128,128 140,132 C 148,134 154,132 156,126
         C 156,116 150,104 140,96 C 128,88 116,84 104,82 L 96,82 Z
-      " fill={getFill('traps')} stroke={getStroke('traps')} strokeWidth={sw('traps')} {...mp('traps')}/>
-      {/* lower trap (small diamond) */}
-      <path d="
-        M 90,124 C 88,134 90,144 94,150 L 100,152 L 106,150 C 110,144 112,134 110,124 L 100,120 Z
       " fill={getFill('traps')} stroke={getStroke('traps')} strokeWidth={sw('traps')} {...mp('traps')}/>
 
       {/* SHOULDERS (rear deltoid) */}
@@ -2361,19 +2357,27 @@ function MuscleMap({ state, dispatch }) {
         C 148,140 140,134 136,124 C 134,114 136,98 138,82 L 142,82 Z
       " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
 
-      {/* LATS / BACK (smaller, more tapered) */}
+      {/* LATS / BACK — calm V-taper into the hourglass */}
       <path d="
-        M 54,140 C 50,156 48,174 50,190 C 52,204 60,216 72,222
-        C 78,224 84,222 88,218 C 86,200 84,180 84,164 C 84,154 84,146 86,138
-        C 72,138 60,138 54,140 Z
+        M 60,134
+        C 56,150 54,168 56,184
+        C 60,198 68,208 78,214
+        C 84,216 90,214 92,210
+        C 90,194 88,178 88,162
+        C 88,150 88,142 90,134
+        L 60,134 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
       <path d="
-        M 146,140 C 150,156 152,174 150,190 C 148,204 140,216 128,222
-        C 122,224 116,222 112,218 C 114,200 116,180 116,164 C 116,154 116,146 114,138
-        C 128,138 140,138 146,140 Z
+        M 140,134
+        C 144,150 146,168 144,184
+        C 140,198 132,208 122,214
+        C 116,216 110,214 108,210
+        C 110,194 112,178 112,162
+        C 112,150 112,142 110,134
+        L 140,134 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
       {/* spine */}
-      <line x1="100" y1="80" x2="100" y2="225" stroke="rgba(180,100,120,0.4)" strokeWidth="0.9" pointerEvents="none"/>
+      <line x1="100" y1="80" x2="100" y2="218" stroke="rgba(180,100,120,0.4)" strokeWidth="0.9" pointerEvents="none"/>
 
       {/* TRICEPS — back of upper arm */}
       <path d="
@@ -2395,32 +2399,32 @@ function MuscleMap({ state, dispatch }) {
         C 168,272 164,250 162,228 C 162,212 170,202 178,210 Z
       " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
 
-      {/* GLUTES — gluteus maximus (plump, raised, the centerpiece) */}
+      {/* GLUTES — fitted to body, rounded but not oversized */}
       <path d="
-        M 48,236
-        C 38,250 32,268 30,290
-        C 30,310 38,328 54,338
-        C 70,346 86,344 94,336
-        C 100,328 100,316 98,302
-        C 96,286 90,268 82,254
-        C 74,238 60,230 48,236 Z
+        M 56,250
+        C 48,262 44,276 44,292
+        C 44,308 52,322 64,328
+        C 76,332 88,330 94,324
+        C 98,318 98,308 96,298
+        C 94,286 90,272 84,262
+        C 78,252 66,246 56,250 Z
       " fill={getFill('glutes')} stroke={getStroke('glutes')} strokeWidth={sw('glutes')} {...mp('glutes')}/>
       <path d="
-        M 152,236
-        C 162,250 168,268 170,290
-        C 170,310 162,328 146,338
-        C 130,346 114,344 106,336
-        C 100,328 100,316 102,302
-        C 104,286 110,268 118,254
-        C 126,238 140,230 152,236 Z
+        M 144,250
+        C 152,262 156,276 156,292
+        C 156,308 148,322 136,328
+        C 124,332 112,330 106,324
+        C 102,318 102,308 104,298
+        C 106,286 110,272 116,262
+        C 122,252 134,246 144,250 Z
       " fill={getFill('glutes')} stroke={getStroke('glutes')} strokeWidth={sw('glutes')} {...mp('glutes')}/>
-      {/* gluteal fold (under both cheeks) */}
-      <path d="M 36,328 C 56,348 80,354 100,354 C 120,354 144,348 164,328" fill="none" stroke="rgba(180,100,120,0.45)" strokeWidth="1.1" pointerEvents="none"/>
+      {/* gluteal fold */}
+      <path d="M 48,322 C 64,338 82,342 100,342 C 118,342 136,338 152,322" fill="none" stroke="rgba(180,100,120,0.45)" strokeWidth="1" pointerEvents="none"/>
       {/* center cleft */}
-      <line x1="100" y1="236" x2="100" y2="350" stroke="rgba(180,100,120,0.45)" strokeWidth="1.1" pointerEvents="none"/>
+      <line x1="100" y1="250" x2="100" y2="340" stroke="rgba(180,100,120,0.42)" strokeWidth="1" pointerEvents="none"/>
       {/* glute roundness highlights */}
-      <path d="M 56,260 C 60,278 66,294 76,308" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1" pointerEvents="none"/>
-      <path d="M 144,260 C 140,278 134,294 124,308" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1" pointerEvents="none"/>
+      <path d="M 60,268 C 64,282 70,294 78,304" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="0.9" pointerEvents="none"/>
+      <path d="M 140,268 C 136,282 130,294 122,304" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="0.9" pointerEvents="none"/>
 
       {/* HAMSTRINGS — back of thighs (moved up under glutes) */}
       <path d="
