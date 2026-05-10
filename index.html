@@ -1991,30 +1991,30 @@ function MuscleMap({ state, dispatch }) {
   const sw = (id) => id===selected ? '2' : '1.5';
   const mp = (id) => ({ className:`muscle-group-path${id===selected?' selected':''}`, style:{cursor:'pointer'}, onClick:()=>handleSelect(id) });
 
-  // ── CALLOUT POSITIONS (where the pointer line ends, outside the body) ──
+  // ── CALLOUT POSITIONS ─────────────────────────────────────
   const FRONT_CALLOUTS = {
-    shoulders: { from:[28, 118], to:[-30, 92], label:'Shoulders' },
-    chest:     { from:[78, 118], to:[-30, 138], label:'Chest' },
-    biceps:    { from:[24, 175], to:[-30, 184], label:'Biceps' },
-    forearms:  { from:[14, 252], to:[-30, 232], label:'Forearms' },
-    core:      { from:[100, 220], to:[238, 192], label:'Core / Abs' },
-    quads:     { from:[60, 340], to:[-30, 332], label:'Quads' },
-    calves:    { from:[48, 442], to:[-30, 422], label:'Calves' },
+    shoulders: { from:[36, 100], to:[-32, 90], label:'Shoulders' },
+    chest:     { from:[78, 120], to:[-32, 132], label:'Chest' },
+    biceps:    { from:[28, 170], to:[-32, 178], label:'Biceps' },
+    forearms:  { from:[20, 258], to:[-32, 240], label:'Forearms' },
+    core:      { from:[100, 220], to:[240, 198], label:'Core / Abs' },
+    quads:     { from:[68, 348], to:[-32, 332], label:'Quads' },
+    calves:    { from:[74, 432], to:[-32, 422], label:'Calves' },
   };
   const BACK_CALLOUTS = {
-    traps:      { from:[100, 110], to:[238, 88], label:'Traps' },
-    back:       { from:[44, 196],  to:[-30, 178], label:'Back / Lats' },
-    triceps:    { from:[28, 168],  to:[238, 142], label:'Triceps' },
-    forearms:   { from:[14, 252],  to:[238, 230], label:'Forearms' },
-    lowerback:  { from:[100, 270], to:[238, 270], label:'Lower Back' },
-    glutes:     { from:[64, 348],  to:[-30, 322], label:'Glutes' },
-    hamstrings: { from:[52, 428],  to:[-30, 408], label:'Hamstrings' },
-    calves:     { from:[52, 484],  to:[-30, 472], label:'Calves' },
+    traps:      { from:[100, 100], to:[240, 88], label:'Trapezius' },
+    back:       { from:[58, 188],  to:[-32, 178], label:'Back / Lats' },
+    triceps:    { from:[28, 168],  to:[240, 142], label:'Triceps' },
+    forearms:   { from:[180, 258], to:[240, 230], label:'Forearms' },
+    lowerback:  { from:[100, 268], to:[240, 270], label:'Lower Back' },
+    glutes:     { from:[74, 332],  to:[-32, 322], label:'Glutes' },
+    hamstrings: { from:[68, 414],  to:[-32, 408], label:'Hamstrings' },
+    calves:     { from:[74, 466],  to:[-32, 472], label:'Calves' },
   };
 
   const Callout = ({data}) => {
     if (!data) return null;
-    const labelW = Math.max(70, data.label.length * 7.2 + 18);
+    const labelW = Math.max(72, data.label.length * 7.4 + 22);
     const onLeft = data.to[0] < 0;
     const rectX = onLeft ? data.to[0] - labelW + 4 : data.to[0] - 4;
     return (
@@ -2022,8 +2022,8 @@ function MuscleMap({ state, dispatch }) {
         <line x1={data.from[0]} y1={data.from[1]} x2={data.to[0]} y2={data.to[1]}
               stroke="#B8860B" strokeWidth="1.3" strokeDasharray="3,2"/>
         <circle cx={data.from[0]} cy={data.from[1]} r="3.5" fill="#FFD700" stroke="#B8860B" strokeWidth="1.2"/>
-        <rect x={rectX} y={data.to[1]-11} width={labelW} height="22" rx="11"
-              fill="#FFFBEA" stroke="#DAA520" strokeWidth="1.3"
+        <rect x={rectX} y={data.to[1]-12} width={labelW} height="24" rx="12"
+              fill="#FFFBEA" stroke="#DAA520" strokeWidth="1.4"
               filter="drop-shadow(0 2px 4px rgba(184,134,11,0.25))"/>
         <text x={rectX + labelW/2} y={data.to[1]+4.5} textAnchor="middle"
               fontSize="11" fontWeight="700" fill="#5C1A2A" fontFamily="Inter,sans-serif">
@@ -2033,301 +2033,416 @@ function MuscleMap({ state, dispatch }) {
     );
   };
 
-  // ── FRONT BODY SVG (feminine hourglass, anatomical style) ────────
+  // ── FRONT BODY (anatomical female, clean human proportions) ──────
   const FrontBody = () => (
-    <svg viewBox="-40 -10 280 520" width="240" height="450" xmlns="http://www.w3.org/2000/svg" style={{overflow:'visible'}} role="img" aria-label="Front body muscle map">
+    <svg viewBox="-50 -10 300 520" width="240" height="450" xmlns="http://www.w3.org/2000/svg" style={{overflow:'visible'}} role="img" aria-label="Front body muscle map">
       <defs>
-        <radialGradient id="skinGradF" cx="50%" cy="30%" r="70%">
+        <radialGradient id="skinGradF" cx="50%" cy="35%" r="65%">
           <stop offset="0%" stopColor="#FDEAED"/>
-          <stop offset="100%" stopColor="#F0C0CC"/>
+          <stop offset="100%" stopColor="#EDB8C4"/>
         </radialGradient>
       </defs>
 
-      {/* ── OUTER BODY SILHOUETTE (hourglass) ── */}
+      {/* HEAD */}
+      <ellipse cx="100" cy="34" rx="20" ry="26" fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.5"/>
+
+      {/* NECK */}
+      <path d="M 90,58 C 89,66 89,74 91,80 L 109,80 C 111,74 111,66 110,58 Z" fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.2"/>
+      <path d="M 90,80 C 96,84 104,84 110,80" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="0.8" pointerEvents="none"/>
+
+      {/* TORSO (hourglass female silhouette) */}
       <path d="
-        M 100,8
-        C 112,8 122,18 122,30 C 122,40 117,48 110,52 C 109,56 109,62 109,68
-        C 122,70 138,76 150,84 C 162,92 170,106 172,122 C 174,138 172,154 170,168
-        C 168,180 166,190 166,200 C 166,210 167,220 168,230 C 169,240 168,250 165,262
-        C 162,274 158,284 154,292
-        C 158,304 162,318 164,334 C 166,350 166,366 164,380 C 162,394 158,410 154,422
-        C 152,434 152,446 156,456 L 126,462
-        C 124,450 124,436 125,424 C 126,412 128,400 128,388 C 128,374 126,360 122,348
-        C 116,334 110,328 100,328
-        C 90,328 84,334 78,348 C 74,360 72,374 72,388 C 72,400 74,412 75,424
-        C 76,436 76,450 74,462 L 44,456
-        C 48,446 48,434 46,422 C 42,410 38,394 36,380 C 34,366 34,350 36,334
-        C 38,318 42,304 46,292
-        C 42,284 38,274 35,262 C 32,250 31,240 32,230 C 33,220 34,210 34,200
-        C 34,190 32,180 30,168 C 28,154 26,138 28,122 C 30,106 38,92 50,84
-        C 62,76 78,70 91,68 C 91,62 91,56 90,52 C 83,48 78,40 78,30 C 78,18 88,8 100,8 Z
+        M 56,82
+        C 50,92 46,110 48,130
+        C 50,150 54,168 60,184
+        C 64,196 70,208 76,218
+        L 78,228
+        C 72,238 64,250 58,264
+        C 52,278 50,292 54,302
+        L 100,306
+        L 146,302
+        C 150,292 148,278 142,264
+        C 136,250 128,238 122,228
+        L 124,218
+        C 130,208 136,196 140,184
+        C 146,168 150,150 152,130
+        C 154,110 150,92 144,82
+        C 134,80 116,78 100,78
+        C 84,78 66,80 56,82 Z
       " fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.5"/>
 
-      {/* ── HEAD (plain skull, no face) ── */}
-      <ellipse cx="100" cy="28" rx="20" ry="24" fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.2"/>
-
-      {/* ── NECK ── */}
-      <path d="M 92,50 C 91,56 91,62 91,68 L 109,68 C 109,62 109,56 108,50 Z" fill="#FDEAED" stroke="#C8909A" strokeWidth="1"/>
-
-      {/* ── CLAVICLES (subtle anatomical lines) ── */}
-      <path d="M 92,70 C 80,68 64,70 50,78" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="1.2" pointerEvents="none"/>
-      <path d="M 108,70 C 120,68 136,70 150,78" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="1.2" pointerEvents="none"/>
-
-      {/* ── LEFT SHOULDER (deltoid) ── */}
+      {/* LEFT ARM (separated from torso, hanging slightly out) */}
       <path d="
-        M 80,70 C 64,70 46,76 34,86 C 22,96 16,112 16,128 C 16,140 20,150 30,156
-        C 38,160 48,158 56,150 C 64,142 68,130 70,118 C 72,106 72,90 76,80 C 78,74 80,70 80,70 Z
+        M 50,82
+        C 38,86 28,98 24,116
+        C 22,134 24,154 28,172
+        L 28,194
+        C 24,212 18,234 14,256
+        C 10,274 8,288 12,298
+        C 16,304 24,306 30,302
+        L 32,314 L 38,316 L 42,310 L 40,294
+        C 42,278 46,256 50,234
+        L 50,212 C 52,194 50,174 50,156
+        C 52,138 54,118 56,100
+        L 60,82 L 50,82 Z
+      " fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.5"/>
+
+      {/* RIGHT ARM (mirror) */}
+      <path d="
+        M 150,82
+        C 162,86 172,98 176,116
+        C 178,134 176,154 172,172
+        L 172,194
+        C 176,212 182,234 186,256
+        C 190,274 192,288 188,298
+        C 184,304 176,306 170,302
+        L 168,314 L 162,316 L 158,310 L 160,294
+        C 158,278 154,256 150,234
+        L 150,212 C 148,194 150,174 150,156
+        C 148,138 146,118 144,100
+        L 140,82 L 150,82 Z
+      " fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.5"/>
+
+      {/* LEFT LEG */}
+      <path d="
+        M 54,304
+        C 50,328 50,354 54,378
+        C 56,392 58,400 60,408
+        C 60,420 60,432 62,442
+        C 64,454 66,464 68,474
+        L 72,486
+        L 86,490
+        L 94,486
+        L 96,472
+        C 96,460 96,446 96,432
+        C 96,418 94,406 92,394
+        C 90,384 88,374 88,360
+        C 86,344 84,326 84,304
+        L 54,304 Z
+      " fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.5"/>
+      {/* knee detail line */}
+      <path d="M 60,378 C 70,388 84,388 90,378" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="0.9" pointerEvents="none"/>
+
+      {/* RIGHT LEG */}
+      <path d="
+        M 146,304
+        C 150,328 150,354 146,378
+        C 144,392 142,400 140,408
+        C 140,420 140,432 138,442
+        C 136,454 134,464 132,474
+        L 128,486
+        L 114,490
+        L 106,486
+        L 104,472
+        C 104,460 104,446 104,432
+        C 104,418 106,406 108,394
+        C 110,384 112,374 112,360
+        C 114,344 116,326 116,304
+        L 146,304 Z
+      " fill="url(#skinGradF)" stroke="#C8909A" strokeWidth="1.5"/>
+      <path d="M 110,378 C 116,388 130,388 140,378" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="0.9" pointerEvents="none"/>
+
+      {/* clavicle hints */}
+      <path d="M 92,82 C 80,80 66,82 56,86" fill="none" stroke="rgba(180,100,120,0.4)" strokeWidth="1.1" pointerEvents="none"/>
+      <path d="M 108,82 C 120,80 134,82 144,86" fill="none" stroke="rgba(180,100,120,0.4)" strokeWidth="1.1" pointerEvents="none"/>
+
+      {/* === MUSCLE REGIONS (clickable) === */}
+
+      {/* SHOULDERS — deltoid caps */}
+      <path d="
+        M 58,82 C 46,86 36,96 32,110 C 28,122 32,134 42,138
+        C 52,140 60,134 64,124 C 66,114 64,98 62,82 L 58,82 Z
+      " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
+      <path d="
+        M 142,82 C 154,86 164,96 168,110 C 172,122 168,134 158,138
+        C 148,140 140,134 136,124 C 134,114 136,98 138,82 L 142,82 Z
       " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
 
-      {/* ── RIGHT SHOULDER (deltoid) ── */}
+      {/* CHEST — pectoralis (two halves with bust suggestion) */}
       <path d="
-        M 120,70 C 136,70 154,76 166,86 C 178,96 184,112 184,128 C 184,140 180,150 170,156
-        C 162,160 152,158 144,150 C 136,142 132,130 130,118 C 128,106 128,90 124,80 C 122,74 120,70 120,70 Z
-      " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
-
-      {/* ── CHEST / BUST ── */}
-      <path d="
-        M 91,72 C 80,74 66,80 56,90 C 48,98 44,112 46,126 C 48,138 56,150 66,158
-        C 74,164 84,168 94,168 L 100,168 C 100,148 96,126 92,108 C 91,96 91,82 91,72 Z
+        M 70,86 C 58,94 52,110 54,128 C 58,146 72,156 88,158 L 100,158
+        L 100,108 C 96,98 92,90 86,84 L 70,86 Z
       " fill={getFill('chest')} stroke={getStroke('chest')} strokeWidth={sw('chest')} {...mp('chest')}/>
       <path d="
-        M 109,72 C 120,74 134,80 144,90 C 152,98 156,112 154,126 C 152,138 144,150 134,158
-        C 126,164 116,168 106,168 L 100,168 C 100,148 104,126 108,108 C 109,96 109,82 109,72 Z
+        M 130,86 C 142,94 148,110 146,128 C 142,146 128,156 112,158 L 100,158
+        L 100,108 C 104,98 108,90 114,84 L 130,86 Z
       " fill={getFill('chest')} stroke={getStroke('chest')} strokeWidth={sw('chest')} {...mp('chest')}/>
-      <path d="M 48,128 C 62,150 82,164 100,166 C 118,164 138,150 152,128" fill="none" stroke="rgba(180,100,120,0.2)" strokeWidth="1" pointerEvents="none"/>
-      <line x1="100" y1="70" x2="100" y2="168" stroke="rgba(180,100,120,0.3)" strokeWidth="0.8" pointerEvents="none"/>
+      <path d="M 56,144 C 70,156 86,160 100,160 C 114,160 130,156 144,144" fill="none" stroke="rgba(180,100,120,0.25)" strokeWidth="0.9" pointerEvents="none"/>
+      <line x1="100" y1="84" x2="100" y2="158" stroke="rgba(180,100,120,0.3)" strokeWidth="0.7" pointerEvents="none"/>
 
-      {/* ── LEFT BICEP ── */}
+      {/* BICEPS — front upper arm */}
       <path d="
-        M 14,136 C 8,150 6,168 8,184 C 10,198 16,210 26,214 C 32,216 38,212 42,204
-        C 46,194 46,178 44,164 C 42,150 36,138 28,132 C 22,128 16,130 14,136 Z
+        M 26,124 C 22,144 22,166 26,184 C 30,196 38,200 44,194
+        C 48,176 48,154 46,132 C 44,122 32,118 26,124 Z
+      " fill={getFill('biceps')} stroke={getStroke('biceps')} strokeWidth={sw('biceps')} {...mp('biceps')}/>
+      <path d="
+        M 174,124 C 178,144 178,166 174,184 C 170,196 162,200 156,194
+        C 152,176 152,154 154,132 C 156,122 168,118 174,124 Z
       " fill={getFill('biceps')} stroke={getStroke('biceps')} strokeWidth={sw('biceps')} {...mp('biceps')}/>
 
-      {/* ── RIGHT BICEP ── */}
+      {/* FOREARMS */}
       <path d="
-        M 186,136 C 192,150 194,168 192,184 C 190,198 184,210 174,214 C 168,216 162,212 158,204
-        C 154,194 154,178 156,164 C 158,150 164,138 172,132 C 178,128 184,130 186,136 Z
-      " fill={getFill('biceps')} stroke={getStroke('biceps')} strokeWidth={sw('biceps')} {...mp('biceps')}/>
-
-      {/* ── LEFT FOREARM ── */}
+        M 22,210 C 16,232 12,256 12,278 C 14,290 22,296 30,290
+        C 32,272 36,250 38,228 C 38,212 30,202 22,210 Z
+      " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
       <path d="
-        M 8,218 C 4,232 2,250 4,266 C 6,280 12,290 20,292 C 26,292 31,288 33,280
-        C 35,270 34,256 32,242 C 30,228 24,218 18,214 C 14,212 10,214 8,218 Z
+        M 178,210 C 184,232 188,256 188,278 C 186,290 178,296 170,290
+        C 168,272 164,250 162,228 C 162,212 170,202 178,210 Z
       " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
 
-      {/* ── RIGHT FOREARM ── */}
+      {/* CORE — rectus abdominis + obliques */}
       <path d="
-        M 192,218 C 196,232 198,250 196,266 C 194,280 188,290 180,292 C 174,292 169,288 167,280
-        C 165,270 166,256 168,242 C 170,228 176,218 182,214 C 186,212 190,214 192,218 Z
-      " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
-
-      {/* ── CORE / ABS ── */}
-      <path d="
-        M 69,170 C 62,180 58,196 56,212 C 54,228 56,244 60,256 C 64,266 70,272 78,272
-        L 100,274 C 100,256 98,236 96,218 C 94,202 90,186 84,174 C 80,166 72,164 69,170 Z
+        M 78,162 C 70,180 64,200 64,220 C 64,240 70,256 80,266 L 100,268
+        L 100,162 L 78,162 Z
       " fill={getFill('core')} stroke={getStroke('core')} strokeWidth={sw('core')} {...mp('core')}/>
       <path d="
-        M 131,170 C 138,180 142,196 144,212 C 146,228 144,244 140,256 C 136,266 130,272 122,272
-        L 100,274 C 100,256 102,236 104,218 C 106,202 110,186 116,174 C 120,166 128,164 131,170 Z
+        M 122,162 C 130,180 136,200 136,220 C 136,240 130,256 120,266 L 100,268
+        L 100,162 L 122,162 Z
       " fill={getFill('core')} stroke={getStroke('core')} strokeWidth={sw('core')} {...mp('core')}/>
-      {[196,216,238].map(y=>(
-        <line key={y} x1="86" y1={y} x2="114" y2={y} stroke="rgba(180,100,120,0.25)" strokeWidth="0.8" pointerEvents="none"/>
+      {[182,202,224,244].map(y=>(
+        <line key={y} x1="84" y1={y} x2="116" y2={y} stroke="rgba(180,100,120,0.22)" strokeWidth="0.7" pointerEvents="none"/>
       ))}
-      <line x1="100" y1="168" x2="100" y2="272" stroke="rgba(180,100,120,0.3)" strokeWidth="0.9" pointerEvents="none"/>
-      <path d="M 42,270 C 56,284 76,292 100,294 C 124,292 144,284 158,270" fill="none" stroke="rgba(180,100,120,0.3)" strokeWidth="1" pointerEvents="none"/>
+      <line x1="100" y1="160" x2="100" y2="266" stroke="rgba(180,100,120,0.3)" strokeWidth="0.8" pointerEvents="none"/>
+      {/* Hip curve */}
+      <path d="M 50,278 C 64,294 82,300 100,302 C 118,300 136,294 150,278" fill="none" stroke="rgba(180,100,120,0.32)" strokeWidth="1" pointerEvents="none"/>
 
-      {/* ── LEFT QUAD ── */}
+      {/* QUADS — front of thighs */}
       <path d="
-        M 42,282 C 36,298 34,318 34,338 C 34,358 38,378 46,394 C 50,402 56,406 62,404
-        C 62,384 62,362 62,342 C 61,322 60,302 56,288 C 54,280 48,274 42,282 Z
+        M 56,310 C 52,332 52,358 56,382 L 86,382 C 86,358 84,332 82,310 L 56,310 Z
       " fill={getFill('quads')} stroke={getStroke('quads')} strokeWidth={sw('quads')} {...mp('quads')}/>
       <path d="
-        M 64,276 C 64,294 64,314 64,334 C 64,354 66,374 68,390 C 70,400 74,406 78,404
-        C 78,384 78,362 77,342 C 76,322 74,302 72,286 C 70,276 66,270 64,276 Z
+        M 144,310 C 148,332 148,358 144,382 L 114,382 C 114,358 116,332 118,310 L 144,310 Z
       " fill={getFill('quads')} stroke={getStroke('quads')} strokeWidth={sw('quads')} {...mp('quads')}/>
-      <path d="
-        M 80,272 C 82,290 84,310 86,330 C 88,350 88,370 88,390 C 90,402 96,408 100,406
-        C 100,386 100,364 99,344 C 98,324 94,304 90,288 C 86,276 82,266 80,272 Z
-      " fill={getFill('quads')} stroke={getStroke('quads')} strokeWidth={sw('quads')} {...mp('quads')}/>
+      {/* quad center lines */}
+      <line x1="71" y1="310" x2="71" y2="380" stroke="rgba(180,100,120,0.25)" strokeWidth="0.7" pointerEvents="none"/>
+      <line x1="129" y1="310" x2="129" y2="380" stroke="rgba(180,100,120,0.25)" strokeWidth="0.7" pointerEvents="none"/>
 
-      {/* ── RIGHT QUAD ── */}
+      {/* CALVES — tibialis + gastroc lateral peek */}
       <path d="
-        M 158,282 C 164,298 166,318 166,338 C 166,358 162,378 154,394 C 150,402 144,406 138,404
-        C 138,384 138,362 138,342 C 139,322 140,302 144,288 C 146,280 152,274 158,282 Z
-      " fill={getFill('quads')} stroke={getStroke('quads')} strokeWidth={sw('quads')} {...mp('quads')}/>
+        M 62,400 C 60,420 60,442 64,462 C 68,472 76,474 82,468
+        C 84,452 86,432 86,412 C 86,398 70,392 62,400 Z
+      " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
       <path d="
-        M 136,276 C 136,294 136,314 136,334 C 136,354 134,374 132,390 C 130,400 126,406 122,404
-        C 122,384 122,362 123,342 C 124,322 126,302 128,286 C 130,276 134,270 136,276 Z
-      " fill={getFill('quads')} stroke={getStroke('quads')} strokeWidth={sw('quads')} {...mp('quads')}/>
-      <path d="
-        M 120,272 C 118,290 116,310 114,330 C 112,350 112,370 112,390 C 110,402 104,408 100,406
-        C 100,386 100,364 101,344 C 102,324 106,304 110,288 C 114,276 118,266 120,272 Z
-      " fill={getFill('quads')} stroke={getStroke('quads')} strokeWidth={sw('quads')} {...mp('quads')}/>
-
-      {/* ── LEFT CALF ── */}
-      <path d="
-        M 38,410 C 34,424 32,442 34,458 C 36,470 42,480 50,482 C 56,482 61,478 62,470
-        C 64,458 62,444 60,430 C 58,418 52,408 46,404 C 42,402 38,404 38,410 Z
+        M 138,400 C 140,420 140,442 136,462 C 132,472 124,474 118,468
+        C 116,452 114,432 114,412 C 114,398 130,392 138,400 Z
       " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
 
-      {/* ── RIGHT CALF ── */}
-      <path d="
-        M 162,410 C 166,424 168,442 166,458 C 164,470 158,480 150,482 C 144,482 139,478 138,470
-        C 136,458 138,444 140,430 C 142,418 148,408 154,404 C 158,402 162,404 162,410 Z
-      " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
-
-      {/* ── DYNAMIC CALLOUT for selected muscle ── */}
+      {/* CALLOUT */}
       <Callout data={FRONT_CALLOUTS[selected]}/>
     </svg>
   );
 
-  // ── BACK BODY SVG (feminine hourglass, anatomical style) ─────────
+  // ── BACK BODY (anatomical female, posterior view) ────────────────
   const BackBody = () => (
-    <svg viewBox="-40 -10 280 520" width="240" height="450" xmlns="http://www.w3.org/2000/svg" style={{overflow:'visible'}} role="img" aria-label="Back body muscle map">
+    <svg viewBox="-50 -10 300 520" width="240" height="450" xmlns="http://www.w3.org/2000/svg" style={{overflow:'visible'}} role="img" aria-label="Back body muscle map">
       <defs>
-        <radialGradient id="skinGradB" cx="50%" cy="30%" r="70%">
+        <radialGradient id="skinGradB" cx="50%" cy="35%" r="65%">
           <stop offset="0%" stopColor="#FDEAED"/>
-          <stop offset="100%" stopColor="#F0C0CC"/>
+          <stop offset="100%" stopColor="#EDB8C4"/>
         </radialGradient>
       </defs>
 
-      {/* ── OUTER BODY SILHOUETTE ── */}
+      {/* HEAD */}
+      <ellipse cx="100" cy="34" rx="20" ry="26" fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.5"/>
+
+      {/* NECK */}
+      <path d="M 90,58 C 89,66 89,74 91,80 L 109,80 C 111,74 111,66 110,58 Z" fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.2"/>
+
+      {/* TORSO (same hourglass) */}
       <path d="
-        M 100,8
-        C 112,8 122,18 122,30 C 122,40 117,48 110,52 C 109,56 109,62 109,68
-        C 122,70 138,76 150,84 C 162,92 170,106 172,122 C 174,138 172,154 170,168
-        C 168,180 166,190 166,200 C 166,210 167,220 168,230 C 169,240 168,250 165,262
-        C 162,274 158,284 154,292
-        C 158,304 162,318 164,334 C 166,350 166,366 164,380 C 162,394 158,410 154,422
-        C 152,434 152,446 156,456 L 126,462
-        C 124,450 124,436 125,424 C 126,412 128,400 128,388 C 128,374 126,360 122,348
-        C 116,334 110,328 100,328
-        C 90,328 84,334 78,348 C 74,360 72,374 72,388 C 72,400 74,412 75,424
-        C 76,436 76,450 74,462 L 44,456
-        C 48,446 48,434 46,422 C 42,410 38,394 36,380 C 34,366 34,350 36,334
-        C 38,318 42,304 46,292
-        C 42,284 38,274 35,262 C 32,250 31,240 32,230 C 33,220 34,210 34,200
-        C 34,190 32,180 30,168 C 28,154 26,138 28,122 C 30,106 38,92 50,84
-        C 62,76 78,70 91,68 C 91,62 91,56 90,52 C 83,48 78,40 78,30 C 78,18 88,8 100,8 Z
+        M 56,82
+        C 50,92 46,110 48,130
+        C 50,150 54,168 60,184
+        C 64,196 70,208 76,218
+        L 78,228
+        C 72,238 64,250 58,264
+        C 52,278 50,292 54,302
+        L 100,306
+        L 146,302
+        C 150,292 148,278 142,264
+        C 136,250 128,238 122,228
+        L 124,218
+        C 130,208 136,196 140,184
+        C 146,168 150,150 152,130
+        C 154,110 150,92 144,82
+        C 134,80 116,78 100,78
+        C 84,78 66,80 56,82 Z
       " fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.5"/>
 
-      {/* ── HEAD (plain skull, no face) ── */}
-      <ellipse cx="100" cy="28" rx="20" ry="24" fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.2"/>
-
-      {/* ── NECK ── */}
-      <path d="M 92,50 C 91,56 91,62 91,68 L 109,68 C 109,62 109,56 108,50 Z" fill="#FDEAED" stroke="#C8909A" strokeWidth="1"/>
-
-      {/* ── TRAPEZIUS ── */}
+      {/* LEFT ARM */}
       <path d="
-        M 94,68 C 82,68 66,72 52,80 C 38,88 26,100 22,116 C 18,128 20,140 30,146
-        C 46,140 64,138 80,136 L 100,132 L 120,136
-        C 136,138 154,140 170,146 C 180,140 182,128 178,116
-        C 174,100 162,88 148,80 C 134,72 118,68 106,68 Z
+        M 50,82
+        C 38,86 28,98 24,116
+        C 22,134 24,154 28,172
+        L 28,194
+        C 24,212 18,234 14,256
+        C 10,274 8,288 12,298
+        C 16,304 24,306 30,302
+        L 32,314 L 38,316 L 42,310 L 40,294
+        C 42,278 46,256 50,234
+        L 50,212 C 52,194 50,174 50,156
+        C 52,138 54,118 56,100
+        L 60,82 L 50,82 Z
+      " fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.5"/>
+
+      {/* RIGHT ARM */}
+      <path d="
+        M 150,82
+        C 162,86 172,98 176,116
+        C 178,134 176,154 172,172
+        L 172,194
+        C 176,212 182,234 186,256
+        C 190,274 192,288 188,298
+        C 184,304 176,306 170,302
+        L 168,314 L 162,316 L 158,310 L 160,294
+        C 158,278 154,256 150,234
+        L 150,212 C 148,194 150,174 150,156
+        C 148,138 146,118 144,100
+        L 140,82 L 150,82 Z
+      " fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.5"/>
+
+      {/* LEFT LEG */}
+      <path d="
+        M 54,304
+        C 50,328 50,354 54,378
+        C 56,392 58,400 60,408
+        C 60,420 60,432 62,442
+        C 64,454 66,464 68,474
+        L 72,486
+        L 86,490
+        L 94,486
+        L 96,472
+        C 96,460 96,446 96,432
+        C 96,418 94,406 92,394
+        C 90,384 88,374 88,360
+        C 86,344 84,326 84,304
+        L 54,304 Z
+      " fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.5"/>
+      <path d="M 60,378 C 70,388 84,388 90,378" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="0.9" pointerEvents="none"/>
+
+      {/* RIGHT LEG */}
+      <path d="
+        M 146,304
+        C 150,328 150,354 146,378
+        C 144,392 142,400 140,408
+        C 140,420 140,432 138,442
+        C 136,454 134,464 132,474
+        L 128,486
+        L 114,490
+        L 106,486
+        L 104,472
+        C 104,460 104,446 104,432
+        C 104,418 106,406 108,394
+        C 110,384 112,374 112,360
+        C 114,344 116,326 116,304
+        L 146,304 Z
+      " fill="url(#skinGradB)" stroke="#C8909A" strokeWidth="1.5"/>
+      <path d="M 110,378 C 116,388 130,388 140,378" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="0.9" pointerEvents="none"/>
+
+      {/* === MUSCLE REGIONS === */}
+
+      {/* TRAPEZIUS (upper back diamond) */}
+      <path d="
+        M 92,80 C 80,82 66,86 54,94 C 42,102 32,114 30,128
+        C 32,138 40,142 50,140 C 64,136 80,134 96,132 L 100,128 L 104,132
+        C 120,134 136,136 150,140 C 160,142 168,138 170,128
+        C 168,114 158,102 146,94 C 134,86 120,82 108,80 L 92,80 Z
       " fill={getFill('traps')} stroke={getStroke('traps')} strokeWidth={sw('traps')} {...mp('traps')}/>
+      {/* lower trap continuation */}
       <path d="
-        M 80,136 C 78,146 78,158 80,166 C 82,174 88,178 94,180
-        L 100,182 L 106,180 C 112,178 118,174 120,166
-        C 122,158 122,146 120,136 L 100,132 Z
+        M 84,134 C 82,148 84,162 90,170 L 100,172 L 110,170 C 116,162 118,148 116,134 L 100,130 Z
       " fill={getFill('traps')} stroke={getStroke('traps')} strokeWidth={sw('traps')} {...mp('traps')}/>
 
-      {/* ── LEFT LAT / BACK ── */}
+      {/* SHOULDERS (rear deltoid) */}
       <path d="
-        M 26,150 C 22,166 20,184 20,202 C 20,218 24,232 32,244 C 40,254 52,262 66,268
-        C 72,270 78,270 82,268 C 80,248 78,226 78,204 C 78,182 80,160 82,142
-        C 62,140 42,140 26,150 Z
+        M 58,82 C 46,86 36,96 32,110 C 28,122 32,134 42,138
+        C 52,140 60,134 64,124 C 66,114 64,98 62,82 L 58,82 Z
+      " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
+      <path d="
+        M 142,82 C 154,86 164,96 168,110 C 172,122 168,134 158,138
+        C 148,140 140,134 136,124 C 134,114 136,98 138,82 L 142,82 Z
+      " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
+
+      {/* LATS / BACK */}
+      <path d="
+        M 50,142 C 46,160 44,180 46,198 C 48,216 56,232 70,240
+        C 78,242 86,240 90,234 C 88,212 86,188 86,166 C 86,154 86,144 88,138
+        C 72,138 58,140 50,142 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
-
-      {/* ── RIGHT LAT / BACK ── */}
       <path d="
-        M 174,150 C 178,166 180,184 180,202 C 180,218 176,232 168,244 C 160,254 148,262 134,268
-        C 128,270 122,270 118,268 C 120,248 122,226 122,204 C 122,182 120,160 118,142
-        C 138,140 158,140 174,150 Z
+        M 150,142 C 154,160 156,180 154,198 C 152,216 144,232 130,240
+        C 122,242 114,240 110,234 C 112,212 114,188 114,166 C 114,154 114,144 112,138
+        C 128,138 142,140 150,142 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
+      {/* spine */}
+      <line x1="100" y1="80" x2="100" y2="240" stroke="rgba(180,100,120,0.4)" strokeWidth="0.9" pointerEvents="none"/>
 
-      <path d="M 100,68 C 100,120 100,180 100,240" fill="none" stroke="rgba(180,100,120,0.3)" strokeWidth="0.9" pointerEvents="none"/>
-
-      {/* ── LEFT TRICEP ── */}
+      {/* TRICEPS — back of upper arm */}
       <path d="
-        M 16,130 C 10,146 8,164 10,180 C 12,194 18,206 28,210 C 34,212 40,208 44,200
-        C 48,190 47,174 45,160 C 43,146 36,134 28,128 C 22,124 16,126 16,130 Z
+        M 26,124 C 22,144 22,166 26,184 C 30,196 38,200 44,194
+        C 48,176 48,154 46,132 C 44,122 32,118 26,124 Z
+      " fill={getFill('triceps')} stroke={getStroke('triceps')} strokeWidth={sw('triceps')} {...mp('triceps')}/>
+      <path d="
+        M 174,124 C 178,144 178,166 174,184 C 170,196 162,200 156,194
+        C 152,176 152,154 154,132 C 156,122 168,118 174,124 Z
       " fill={getFill('triceps')} stroke={getStroke('triceps')} strokeWidth={sw('triceps')} {...mp('triceps')}/>
 
-      {/* ── RIGHT TRICEP ── */}
+      {/* FOREARM EXTENSORS */}
       <path d="
-        M 184,130 C 190,146 192,164 190,180 C 188,194 182,206 172,210 C 166,212 160,208 156,200
-        C 152,190 153,174 155,160 C 157,146 164,134 172,128 C 178,124 184,126 184,130 Z
-      " fill={getFill('triceps')} stroke={getStroke('triceps')} strokeWidth={sw('triceps')} {...mp('triceps')}/>
-
-      {/* ── LEFT FOREARM ── */}
+        M 22,210 C 16,232 12,256 12,278 C 14,290 22,296 30,290
+        C 32,272 36,250 38,228 C 38,212 30,202 22,210 Z
+      " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
       <path d="
-        M 8,218 C 4,232 2,250 4,266 C 6,280 12,290 20,292 C 26,292 31,288 33,280
-        C 35,270 34,256 32,242 C 30,228 24,218 18,214 C 14,212 10,214 8,218 Z
+        M 178,210 C 184,232 188,256 188,278 C 186,290 178,296 170,290
+        C 168,272 164,250 162,228 C 162,212 170,202 178,210 Z
       " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
 
-      {/* ── RIGHT FOREARM ── */}
+      {/* LOWER BACK (erector spinae) */}
       <path d="
-        M 192,218 C 196,232 198,250 196,266 C 194,280 188,290 180,292 C 174,292 169,288 167,280
-        C 165,270 166,256 168,242 C 170,228 176,218 182,214 C 186,212 190,214 192,218 Z
-      " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
-
-      {/* ── LOWER BACK ── */}
-      <path d="
-        M 68,240 C 62,252 58,266 58,280 C 58,292 62,302 70,308 C 78,314 88,316 100,316
-        C 112,316 122,314 130,308 C 138,302 142,292 142,280 C 142,266 138,252 132,240
-        C 124,232 114,228 100,228 C 86,228 76,232 68,240 Z
+        M 76,242 C 70,254 66,268 66,280 C 66,292 72,302 82,306 L 100,308
+        L 118,306 C 128,302 134,292 134,280 C 134,268 130,254 124,242
+        C 116,236 108,232 100,232 C 92,232 84,236 76,242 Z
       " fill={getFill('lowerback')} stroke={getStroke('lowerback')} strokeWidth={sw('lowerback')} {...mp('lowerback')}/>
-      <circle cx="88" cy="296" r="3" fill="rgba(180,100,120,0.18)" pointerEvents="none"/>
-      <circle cx="112" cy="296" r="3" fill="rgba(180,100,120,0.18)" pointerEvents="none"/>
+      <circle cx="88" cy="290" r="2.5" fill="rgba(180,100,120,0.2)" pointerEvents="none"/>
+      <circle cx="112" cy="290" r="2.5" fill="rgba(180,100,120,0.2)" pointerEvents="none"/>
 
-      {/* ── GLUTES ── */}
+      {/* GLUTES — gluteus maximus (the centerpiece) */}
       <path d="
-        M 38,296 C 30,308 26,324 26,342 C 26,360 32,376 44,386 C 54,394 66,396 78,392
-        C 86,388 92,380 94,370 C 96,358 94,344 90,332 C 86,320 80,310 72,302
-        C 64,294 50,288 38,296 Z
+        M 50,308 C 42,318 38,332 38,348 C 38,366 46,380 60,388
+        C 72,394 86,392 92,384 C 96,376 96,366 94,354
+        C 92,340 88,326 82,316 C 74,308 60,304 50,308 Z
       " fill={getFill('glutes')} stroke={getStroke('glutes')} strokeWidth={sw('glutes')} {...mp('glutes')}/>
-      <path d="M 30,360 C 44,376 62,386 80,388" fill="none" stroke="rgba(180,100,120,0.3)" strokeWidth="1" pointerEvents="none"/>
-
       <path d="
-        M 162,296 C 170,308 174,324 174,342 C 174,360 168,376 156,386 C 146,394 134,396 122,392
-        C 114,388 108,380 106,370 C 104,358 106,344 110,332 C 114,320 120,310 128,302
-        C 136,294 150,288 162,296 Z
+        M 150,308 C 158,318 162,332 162,348 C 162,366 154,380 140,388
+        C 128,394 114,392 108,384 C 104,376 104,366 106,354
+        C 108,340 112,326 118,316 C 126,308 140,304 150,308 Z
       " fill={getFill('glutes')} stroke={getStroke('glutes')} strokeWidth={sw('glutes')} {...mp('glutes')}/>
-      <path d="M 170,360 C 156,376 138,386 120,388" fill="none" stroke="rgba(180,100,120,0.3)" strokeWidth="1" pointerEvents="none"/>
-      <path d="M 100,316 C 100,340 100,360 100,390" fill="none" stroke="rgba(180,100,120,0.35)" strokeWidth="1" pointerEvents="none"/>
+      {/* gluteal fold (bottom of butt) */}
+      <path d="M 44,378 C 60,394 80,398 100,398 C 120,398 140,394 156,378" fill="none" stroke="rgba(180,100,120,0.4)" strokeWidth="1" pointerEvents="none"/>
+      {/* center line */}
+      <line x1="100" y1="308" x2="100" y2="394" stroke="rgba(180,100,120,0.4)" strokeWidth="1" pointerEvents="none"/>
 
-      {/* ── LEFT HAMSTRING ── */}
+      {/* HAMSTRINGS — back of thighs */}
       <path d="
-        M 38,392 C 34,408 32,426 34,444 C 36,458 42,470 52,474 C 58,476 64,472 68,464
-        C 72,454 72,438 70,424 C 68,410 62,398 54,392 C 48,388 42,388 38,392 Z
+        M 56,396 C 52,418 52,440 56,458 C 58,468 62,476 68,476
+        C 76,474 80,466 82,456 C 84,440 84,418 84,396 L 56,396 Z
       " fill={getFill('hamstrings')} stroke={getStroke('hamstrings')} strokeWidth={sw('hamstrings')} {...mp('hamstrings')}/>
       <path d="
-        M 64,394 C 64,412 66,432 68,450 C 70,462 74,474 80,478 C 86,480 91,476 93,468
-        C 95,458 93,442 91,428 C 89,414 84,402 78,396 C 72,390 66,388 64,394 Z
-      " fill={getFill('hamstrings')} stroke={getStroke('hamstrings')} strokeWidth={sw('hamstrings')} {...mp('hamstrings')}/>
-
-      {/* ── RIGHT HAMSTRING ── */}
-      <path d="
-        M 162,392 C 166,408 168,426 166,444 C 164,458 158,470 148,474 C 142,476 136,472 132,464
-        C 128,454 128,438 130,424 C 132,410 138,398 146,392 C 152,388 158,388 162,392 Z
-      " fill={getFill('hamstrings')} stroke={getStroke('hamstrings')} strokeWidth={sw('hamstrings')} {...mp('hamstrings')}/>
-      <path d="
-        M 136,394 C 136,412 134,432 132,450 C 130,462 126,474 120,478 C 114,480 109,476 107,468
-        C 105,458 107,442 109,428 C 111,414 116,402 122,396 C 128,390 134,388 136,394 Z
+        M 144,396 C 148,418 148,440 144,458 C 142,468 138,476 132,476
+        C 124,474 120,466 118,456 C 116,440 116,418 116,396 L 144,396 Z
       " fill={getFill('hamstrings')} stroke={getStroke('hamstrings')} strokeWidth={sw('hamstrings')} {...mp('hamstrings')}/>
 
-      {/* ── LEFT CALF ── */}
+      {/* CALVES — gastrocnemius (back of lower leg) */}
       <path d="
-        M 44,474 C 40,484 40,490 44,492 C 52,492 60,482 64,472
-        C 62,474 58,476 52,476 C 48,476 44,476 44,474 Z
+        M 60,398 C 56,420 58,444 64,464 C 68,474 76,478 82,472
+        C 86,452 88,430 88,410 C 88,398 70,394 60,398 Z
+      " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
+      <path d="
+        M 140,398 C 144,420 142,444 136,464 C 132,474 124,478 118,472
+        C 114,452 112,430 112,410 C 112,398 130,394 140,398 Z
       " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
 
-      {/* ── RIGHT CALF ── */}
-      <path d="
-        M 156,474 C 160,484 160,490 156,492 C 148,492 140,482 136,472
-        C 138,474 142,476 148,476 C 152,476 156,476 156,474 Z
-      " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
-
-      {/* ── DYNAMIC CALLOUT for selected muscle ── */}
+      {/* CALLOUT */}
       <Callout data={BACK_CALLOUTS[selected]}/>
     </svg>
   );
