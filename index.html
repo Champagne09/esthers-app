@@ -952,7 +952,6 @@ const MUSCLES = [
   { id:'core',     label:'Core / Abs',  side:'front' },
   { id:'back',     label:'Back / Lats', side:'back'  },
   { id:'traps',    label:'Traps',       side:'back'  },
-  { id:'lowerback',label:'Lower Back',  side:'back'  },
   { id:'glutes',   label:'Glutes',      side:'back'  },
   { id:'quads',    label:'Quads',       side:'front' },
   { id:'hamstrings',label:'Hamstrings', side:'back'  },
@@ -2002,14 +2001,13 @@ function MuscleMap({ state, dispatch }) {
     calves:    { from:[74, 432], to:[-32, 422], label:'Calves' },
   };
   const BACK_CALLOUTS = {
-    traps:      { from:[100, 100], to:[240, 88], label:'Trapezius' },
-    back:       { from:[58, 188],  to:[-32, 178], label:'Back / Lats' },
+    traps:      { from:[100, 96],  to:[240, 86], label:'Trapezius' },
+    back:       { from:[58, 174],  to:[-32, 168], label:'Back / Lats' },
     triceps:    { from:[28, 168],  to:[240, 142], label:'Triceps' },
     forearms:   { from:[180, 258], to:[240, 230], label:'Forearms' },
-    lowerback:  { from:[100, 268], to:[240, 270], label:'Lower Back' },
-    glutes:     { from:[74, 332],  to:[-32, 322], label:'Glutes' },
-    hamstrings: { from:[68, 414],  to:[-32, 408], label:'Hamstrings' },
-    calves:     { from:[74, 466],  to:[-32, 472], label:'Calves' },
+    glutes:     { from:[74, 280],  to:[240, 268], label:'Glutes' },
+    hamstrings: { from:[70, 360],  to:[-32, 354], label:'Hamstrings' },
+    calves:     { from:[74, 440],  to:[-32, 446], label:'Calves' },
   };
 
   const Callout = ({data}) => {
@@ -2190,19 +2188,19 @@ function MuscleMap({ state, dispatch }) {
         C 168,272 164,250 162,228 C 162,212 170,202 178,210 Z
       " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
 
-      {/* CORE — rectus abdominis + obliques */}
+      {/* CORE — rectus abdominis + obliques (tight waist) */}
       <path d="
-        M 78,162 C 70,180 64,200 64,220 C 64,240 70,256 80,266 L 100,268
-        L 100,162 L 78,162 Z
+        M 86,168 C 78,184 74,202 74,222 C 74,238 78,252 86,260 L 100,262
+        L 100,168 L 86,168 Z
       " fill={getFill('core')} stroke={getStroke('core')} strokeWidth={sw('core')} {...mp('core')}/>
       <path d="
-        M 122,162 C 130,180 136,200 136,220 C 136,240 130,256 120,266 L 100,268
-        L 100,162 L 122,162 Z
+        M 114,168 C 122,184 126,202 126,222 C 126,238 122,252 114,260 L 100,262
+        L 100,168 L 114,168 Z
       " fill={getFill('core')} stroke={getStroke('core')} strokeWidth={sw('core')} {...mp('core')}/>
-      {[182,202,224,244].map(y=>(
-        <line key={y} x1="84" y1={y} x2="116" y2={y} stroke="rgba(180,100,120,0.22)" strokeWidth="0.7" pointerEvents="none"/>
+      {[186,204,222,240].map(y=>(
+        <line key={y} x1="88" y1={y} x2="112" y2={y} stroke="rgba(180,100,120,0.22)" strokeWidth="0.7" pointerEvents="none"/>
       ))}
-      <line x1="100" y1="160" x2="100" y2="266" stroke="rgba(180,100,120,0.3)" strokeWidth="0.8" pointerEvents="none"/>
+      <line x1="100" y1="166" x2="100" y2="262" stroke="rgba(180,100,120,0.3)" strokeWidth="0.8" pointerEvents="none"/>
       {/* Hip curve */}
       <path d="M 50,278 C 64,294 82,300 100,302 C 118,300 136,294 150,278" fill="none" stroke="rgba(180,100,120,0.32)" strokeWidth="1" pointerEvents="none"/>
 
@@ -2341,16 +2339,16 @@ function MuscleMap({ state, dispatch }) {
 
       {/* === MUSCLE REGIONS === */}
 
-      {/* TRAPEZIUS (upper back diamond) */}
+      {/* TRAPEZIUS (smaller upper back wedge) */}
       <path d="
-        M 92,80 C 80,82 66,86 54,94 C 42,102 32,114 30,128
-        C 32,138 40,142 50,140 C 64,136 80,134 96,132 L 100,128 L 104,132
-        C 120,134 136,136 150,140 C 160,142 168,138 170,128
-        C 168,114 158,102 146,94 C 134,86 120,82 108,80 L 92,80 Z
+        M 96,82 C 84,84 72,88 60,96 C 50,104 44,116 44,126
+        C 46,132 52,134 60,132 C 72,128 84,126 96,124 L 100,122 L 104,124
+        C 116,126 128,128 140,132 C 148,134 154,132 156,126
+        C 156,116 150,104 140,96 C 128,88 116,84 104,82 L 96,82 Z
       " fill={getFill('traps')} stroke={getStroke('traps')} strokeWidth={sw('traps')} {...mp('traps')}/>
-      {/* lower trap continuation */}
+      {/* lower trap (small diamond) */}
       <path d="
-        M 84,134 C 82,148 84,162 90,170 L 100,172 L 110,170 C 116,162 118,148 116,134 L 100,130 Z
+        M 90,124 C 88,134 90,144 94,150 L 100,152 L 106,150 C 110,144 112,134 110,124 L 100,120 Z
       " fill={getFill('traps')} stroke={getStroke('traps')} strokeWidth={sw('traps')} {...mp('traps')}/>
 
       {/* SHOULDERS (rear deltoid) */}
@@ -2363,19 +2361,19 @@ function MuscleMap({ state, dispatch }) {
         C 148,140 140,134 136,124 C 134,114 136,98 138,82 L 142,82 Z
       " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
 
-      {/* LATS / BACK */}
+      {/* LATS / BACK (smaller, more tapered) */}
       <path d="
-        M 50,142 C 46,160 44,180 46,198 C 48,216 56,232 70,240
-        C 78,242 86,240 90,234 C 88,212 86,188 86,166 C 86,154 86,144 88,138
-        C 72,138 58,140 50,142 Z
+        M 54,140 C 50,156 48,174 50,190 C 52,204 60,216 72,222
+        C 78,224 84,222 88,218 C 86,200 84,180 84,164 C 84,154 84,146 86,138
+        C 72,138 60,138 54,140 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
       <path d="
-        M 150,142 C 154,160 156,180 154,198 C 152,216 144,232 130,240
-        C 122,242 114,240 110,234 C 112,212 114,188 114,166 C 114,154 114,144 112,138
-        C 128,138 142,140 150,142 Z
+        M 146,140 C 150,156 152,174 150,190 C 148,204 140,216 128,222
+        C 122,224 116,222 112,218 C 114,200 116,180 116,164 C 116,154 116,146 114,138
+        C 128,138 140,138 146,140 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
       {/* spine */}
-      <line x1="100" y1="80" x2="100" y2="240" stroke="rgba(180,100,120,0.4)" strokeWidth="0.9" pointerEvents="none"/>
+      <line x1="100" y1="80" x2="100" y2="225" stroke="rgba(180,100,120,0.4)" strokeWidth="0.9" pointerEvents="none"/>
 
       {/* TRICEPS — back of upper arm */}
       <path d="
@@ -2397,49 +2395,51 @@ function MuscleMap({ state, dispatch }) {
         C 168,272 164,250 162,228 C 162,212 170,202 178,210 Z
       " fill={getFill('forearms')} stroke={getStroke('forearms')} strokeWidth={sw('forearms')} {...mp('forearms')}/>
 
-      {/* LOWER BACK (erector spinae) */}
+      {/* GLUTES — gluteus maximus (plump, raised, the centerpiece) */}
       <path d="
-        M 76,242 C 70,254 66,268 66,280 C 66,292 72,302 82,306 L 100,308
-        L 118,306 C 128,302 134,292 134,280 C 134,268 130,254 124,242
-        C 116,236 108,232 100,232 C 92,232 84,236 76,242 Z
-      " fill={getFill('lowerback')} stroke={getStroke('lowerback')} strokeWidth={sw('lowerback')} {...mp('lowerback')}/>
-      <circle cx="88" cy="290" r="2.5" fill="rgba(180,100,120,0.2)" pointerEvents="none"/>
-      <circle cx="112" cy="290" r="2.5" fill="rgba(180,100,120,0.2)" pointerEvents="none"/>
-
-      {/* GLUTES — gluteus maximus (the centerpiece) */}
-      <path d="
-        M 50,308 C 42,318 38,332 38,348 C 38,366 46,380 60,388
-        C 72,394 86,392 92,384 C 96,376 96,366 94,354
-        C 92,340 88,326 82,316 C 74,308 60,304 50,308 Z
+        M 48,236
+        C 38,250 32,268 30,290
+        C 30,310 38,328 54,338
+        C 70,346 86,344 94,336
+        C 100,328 100,316 98,302
+        C 96,286 90,268 82,254
+        C 74,238 60,230 48,236 Z
       " fill={getFill('glutes')} stroke={getStroke('glutes')} strokeWidth={sw('glutes')} {...mp('glutes')}/>
       <path d="
-        M 150,308 C 158,318 162,332 162,348 C 162,366 154,380 140,388
-        C 128,394 114,392 108,384 C 104,376 104,366 106,354
-        C 108,340 112,326 118,316 C 126,308 140,304 150,308 Z
+        M 152,236
+        C 162,250 168,268 170,290
+        C 170,310 162,328 146,338
+        C 130,346 114,344 106,336
+        C 100,328 100,316 102,302
+        C 104,286 110,268 118,254
+        C 126,238 140,230 152,236 Z
       " fill={getFill('glutes')} stroke={getStroke('glutes')} strokeWidth={sw('glutes')} {...mp('glutes')}/>
-      {/* gluteal fold (bottom of butt) */}
-      <path d="M 44,378 C 60,394 80,398 100,398 C 120,398 140,394 156,378" fill="none" stroke="rgba(180,100,120,0.4)" strokeWidth="1" pointerEvents="none"/>
-      {/* center line */}
-      <line x1="100" y1="308" x2="100" y2="394" stroke="rgba(180,100,120,0.4)" strokeWidth="1" pointerEvents="none"/>
+      {/* gluteal fold (under both cheeks) */}
+      <path d="M 36,328 C 56,348 80,354 100,354 C 120,354 144,348 164,328" fill="none" stroke="rgba(180,100,120,0.45)" strokeWidth="1.1" pointerEvents="none"/>
+      {/* center cleft */}
+      <line x1="100" y1="236" x2="100" y2="350" stroke="rgba(180,100,120,0.45)" strokeWidth="1.1" pointerEvents="none"/>
+      {/* glute roundness highlights */}
+      <path d="M 56,260 C 60,278 66,294 76,308" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1" pointerEvents="none"/>
+      <path d="M 144,260 C 140,278 134,294 124,308" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1" pointerEvents="none"/>
 
-      {/* HAMSTRINGS — back of thighs */}
+      {/* HAMSTRINGS — back of thighs (moved up under glutes) */}
       <path d="
-        M 56,396 C 52,418 52,440 56,458 C 58,468 62,476 68,476
-        C 76,474 80,466 82,456 C 84,440 84,418 84,396 L 56,396 Z
+        M 56,360 C 52,380 52,402 56,422 C 58,432 62,438 68,436
+        C 76,432 80,424 82,414 C 84,398 84,378 84,360 L 56,360 Z
       " fill={getFill('hamstrings')} stroke={getStroke('hamstrings')} strokeWidth={sw('hamstrings')} {...mp('hamstrings')}/>
       <path d="
-        M 144,396 C 148,418 148,440 144,458 C 142,468 138,476 132,476
-        C 124,474 120,466 118,456 C 116,440 116,418 116,396 L 144,396 Z
+        M 144,360 C 148,380 148,402 144,422 C 142,432 138,438 132,436
+        C 124,432 120,424 118,414 C 116,398 116,378 116,360 L 144,360 Z
       " fill={getFill('hamstrings')} stroke={getStroke('hamstrings')} strokeWidth={sw('hamstrings')} {...mp('hamstrings')}/>
 
-      {/* CALVES — gastrocnemius (back of lower leg) */}
+      {/* CALVES — gastrocnemius (back of lower leg, lower than hams) */}
       <path d="
-        M 60,398 C 56,420 58,444 64,464 C 68,474 76,478 82,472
-        C 86,452 88,430 88,410 C 88,398 70,394 60,398 Z
+        M 60,432 C 56,452 58,470 64,478 C 68,484 76,484 82,478
+        C 86,460 88,444 88,430 C 88,420 70,418 60,432 Z
       " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
       <path d="
-        M 140,398 C 144,420 142,444 136,464 C 132,474 124,478 118,472
-        C 114,452 112,430 112,410 C 112,398 130,394 140,398 Z
+        M 140,432 C 144,452 142,470 136,478 C 132,484 124,484 118,478
+        C 114,460 112,444 112,430 C 112,420 130,418 140,432 Z
       " fill={getFill('calves')} stroke={getStroke('calves')} strokeWidth={sw('calves')} {...mp('calves')}/>
 
       {/* CALLOUT */}
