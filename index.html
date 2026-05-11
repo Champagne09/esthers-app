@@ -2357,27 +2357,25 @@ function MuscleMap({ state, dispatch }) {
         C 148,140 140,134 136,124 C 134,114 136,98 138,82 L 142,82 Z
       " fill={getFill('shoulders')} stroke={getStroke('shoulders')} strokeWidth={sw('shoulders')} {...mp('shoulders')}/>
 
-      {/* LATS / BACK — calm V-taper into the hourglass */}
+      {/* LATS / BACK — symmetric V-taper meeting at the spine */}
       <path d="
-        M 60,134
-        C 56,150 54,168 56,184
-        C 60,198 68,208 78,214
-        C 84,216 90,214 92,210
-        C 90,194 88,178 88,162
-        C 88,150 88,142 90,134
-        L 60,134 Z
+        M 58,134
+        C 54,150 52,170 54,188
+        C 60,202 72,214 86,220
+        L 98,222
+        L 98,134
+        L 58,134 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
       <path d="
-        M 140,134
-        C 144,150 146,168 144,184
-        C 140,198 132,208 122,214
-        C 116,216 110,214 108,210
-        C 110,194 112,178 112,162
-        C 112,150 112,142 110,134
-        L 140,134 Z
+        M 142,134
+        C 146,150 148,170 146,188
+        C 140,202 128,214 114,220
+        L 102,222
+        L 102,134
+        L 142,134 Z
       " fill={getFill('back')} stroke={getStroke('back')} strokeWidth={sw('back')} {...mp('back')}/>
       {/* spine */}
-      <line x1="100" y1="80" x2="100" y2="218" stroke="rgba(180,100,120,0.4)" strokeWidth="0.9" pointerEvents="none"/>
+      <line x1="100" y1="80" x2="100" y2="222" stroke="rgba(180,100,120,0.4)" strokeWidth="0.9" pointerEvents="none"/>
 
       {/* TRICEPS — back of upper arm */}
       <path d="
